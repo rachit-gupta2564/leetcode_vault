@@ -1,9 +1,22 @@
-// Last updated: 16/09/2025, 23:00:01
+// Last updated: 16/09/2025, 23:00:48
+import java.util.*;
+
 class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-        if (head == null) return null;
-        head.next = deleteDuplicates(head.next);
-        if (head.next != null && head.val == head.next.val) head.next = head.next.next;
-        return head;
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        Deque<Integer> st = new ArrayDeque<>();
+        long max = 0;
+        for (int i = 0; i <= n; i++) {
+            int h = (i == n ? 0 : heights[i]);
+            while (!st.isEmpty() && heights[st.peekLast()] > h) {
+                int idx = st.pollLast();
+                int left = st.isEmpty() ? -1 : st.peekLast();
+                long width = i - left - 1;
+                long area = (long)heights[idx] * width;
+                if (area > max) max = area;
+            }
+            st.addLast(i);
+        }
+        return (int)max;
     }
 }
