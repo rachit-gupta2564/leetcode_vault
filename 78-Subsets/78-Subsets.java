@@ -1,21 +1,14 @@
-// Last updated: 16/09/2025, 22:58:38
+// Last updated: 16/09/2025, 22:58:56
 class Solution {
-    public boolean search(int[] nums, int target) {
-        int l = 0, r = nums.length - 1;
-        while (l <= r) {
-            int m = (l + r) >>> 1;
-            if (nums[m] == target) return true;
-            if (nums[l] == nums[m] && nums[m] == nums[r]) {
-                l++;
-                r--;
-            } else if (nums[l] <= nums[m]) {
-                if (nums[l] <= target && target < nums[m]) r = m - 1;
-                else l = m + 1;
-            } else {
-                if (nums[m] < target && target <= nums[r]) l = m + 1;
-                else r = m - 1;
-            }
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        if (head.next != null && head.val == head.next.val) {
+            int v = head.val;
+            while (head != null && head.val == v) head = head.next;
+            return deleteDuplicates(head);
+        } else {
+            head.next = deleteDuplicates(head.next);
+            return head;
         }
-        return false;
     }
 }
