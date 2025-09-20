@@ -1,18 +1,20 @@
-// Last updated: 20/09/2025, 22:04:36
+// Last updated: 20/09/2025, 22:05:04
 public class Solution {
-    public ListNode removeElements(ListNode head, int val) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode prev = dummy;
-        ListNode curr = head;
-        while (curr != null) {
-            if (curr.val == val) {
-                prev.next = curr.next;
-            } else {
-                prev = curr;
+    public int countPrimes(int n) {
+        if (n <= 2) return 0;
+        boolean[] isComposite = new boolean[n]; // default false
+        int limit = (int)Math.sqrt(n - 1);
+        for (int i = 2; i <= limit; i++) {
+            if (!isComposite[i]) {
+                for (int j = i * i; j < n; j += i) {
+                    isComposite[j] = true;
+                }
             }
-            curr = curr.next;
         }
-        return dummy.next;
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!isComposite[i]) count++;
+        }
+        return count;
     }
 }
