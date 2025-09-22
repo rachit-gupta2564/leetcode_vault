@@ -1,0 +1,8 @@
+// Last updated: 22/09/2025, 16:19:07
+class Solution {
+    public boolean isPowerOfFour(int n) {
+        return n > 0 
+            && (n & (n - 1)) == 0 
+            && (n & 0x55555555) != 0;
+    }
+}
